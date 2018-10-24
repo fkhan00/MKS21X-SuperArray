@@ -1,7 +1,7 @@
 public class SuperArray
 {
-String[] arr;
-int size;
+private String[] arr;
+private int size;
 public SuperArray()
 {
   arr = new String[10];
@@ -30,6 +30,7 @@ public void clear()
 for(int i = 0; i < arr.length; i ++)
 {
 arr[i] = "";
+size = 0;
 }
 }
 
@@ -44,27 +45,37 @@ return size;
 }
 public boolean add(String word)
 {
-arr[arr.length] = word;
+if (size == arr.length)
+{
+  return false;
+}
+arr[size()] = word;
+size ++;
 return true;
 }
 
 public String toString()
 {
-return "" + arr;
+  String arrayString = "[";
+  for(int i=0; i<arr.length; i++){
+    arrayString += arr[i] + ",";
+  }
+  arrayString += "]";
+  return arrayString;
 }
 
 public String get(int index)
 {
-if (index > arr.length || index < 0)
+if (index >= arr.length || index < 0)
 {
-return "out of bounds error";
+return null;
 }
 return arr[index];
 }
 
 public String set(int index, String word)
 {
-if (index > arr.length || index < 0)
+if (index > arr.length || index < 0 || arr[index] == word)
 {
 System.out.println("error");
 return null;

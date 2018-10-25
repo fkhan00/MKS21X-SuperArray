@@ -64,6 +64,19 @@ public String toString()
   return arrayString;
 }
 
+public String toStringDebug()
+{
+  String arrayString = "[";
+  for(int i=0; i<arr.length; i++){
+    if (arr[i] != null)
+    {
+    arrayString += arr[i] + ",";
+  }
+  }
+  arrayString += "]";
+  return arrayString;
+}
+
 public String get(int index)
 {
 if (index >= arr.length || index < 0)
@@ -87,7 +100,7 @@ return power;
 
 private void resize()
 {
-  String[] output = new String[arr.length + 1];
+  String[] output = new String[arr.length * 2];
   for (int i = 0; i < arr.length; i ++)
   {
     output[i] = arr[i];
@@ -153,20 +166,19 @@ public void add(int index, String word)
   {
   String[] result = new String[arr.length];
   result[index] = word;
-  result.size = 1;
   for (int i = 0; i < arr.length - 1; i++)
   {
     if (i >= index)
     {
-      result.add(arr[i]);
-      result.size ++;
+      result[i + 1] = arr[i];
     }
     else if (i < index)
     {
       result[i] = arr[i];
-      result.size ++;
     }
   }
+  arr = result;
+  size ++;
 }
 }
 
@@ -181,7 +193,6 @@ public String remove(int index)
   {
     word = arr[index];
     String[] resultant = new String[arr.length - 1];
-    resultant.size = 0;
     for (int i = 0; i < arr.length - 1; i++)
     {
       if (i == index)
@@ -191,15 +202,14 @@ public String remove(int index)
       if (i > index)
       {
         resultant[i - 1] = arr[i];
-        resultant.size ++;
       }
       if (i < index)
       {
         resultant[i] = arr[i];
-        resultant.size ++;
       }
     }
     this.arr = resultant;
+    size ++;
   }
   return word;
 }

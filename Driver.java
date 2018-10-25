@@ -52,16 +52,25 @@ public static void main(String[] args)
   System.out.println("Should return UNITED STATES SMASH OF");
   testCase.add(2, "SMASH");
   System.out.println(testCase);
+  testCase.add(1, "power");
+  testCase.add(2, "power");
+  testCase.add(3, "power");
+  testCase.add(4, "power");
   testCase.add(2, "OF");
+  testCase.add(9, "power");
+  System.out.println("several add calls should have created a new array with 20elements");
+  System.out.println(testCase);
   testCase.remove(4);
+  testCase.remove(3);
+  testCase.remove(2);
+  testCase.remove(1);
+  testCase.remove(1);
+  testCase.remove(4);
+  testCase.add(2, "OF");
+  testCase.remove(testCase.lastIndexOf("OF"));
   System.out.println("Should return:");
   System.out.println(testCase);
-
-
-
-
-
-
-
+  System.out.println("Finally Testing toStringDebug \n \n");
+  System.out.println(testCase.toStringDebug());
 }
 }

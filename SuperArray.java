@@ -7,7 +7,7 @@ public SuperArray()
   arr = new String[10];
   size = 0;
 }
-public SuperArray(String[] newAr)
+public SuperArray(String[] newAr, int newSize)
 {
 int counter = 0;
 for (int i = 0; i < newAr.length; i++)
@@ -99,7 +99,7 @@ public boolean contains(String target)
 {
   for (int i = 0; i < arr.length; i ++)
   {
-    if (arr[i].equals(target))
+    if (arr[i] != null && arr[i].equals(target))
     {
       return true;
     }
@@ -129,9 +129,9 @@ public int lastIndexOf(String target)
   {
     return -1;
   }
-  for (int i = arr.length; i >= 0; i -= 1)
+  for (int i = arr.length - 1; i >= 0; i -= 1)
   {
-    if (arr[i].equals(target))
+    if (arr[i] != null && arr[i].equals(target))
     {
       return i;
     }
@@ -141,31 +141,33 @@ public int lastIndexOf(String target)
 
 public void add(int index, String word)
 {
-  if (index == arr.length)
+  if (size == arr.length)
   {
     resize();
   }
-  if (index > arr.length || index < 0)
+  if (index >= arr.length || index < 0)
   {
     System.out.println("Out of Bounds error");
   }
   else
   {
-  String[] result = new String[arr.length + 1];
-  arr[index] = word;
-  for (int i = 0; i < arr.length; i++)
+  String[] result = new String[arr.length];
+  result[index] = word;
+  result.size = 1;
+  for (int i = 0; i < arr.length - 1; i++)
   {
     if (i >= index)
     {
-      result[i + 1] = arr[i];
+      result.add(arr[i]);
+      result.size ++;
     }
-    else
+    else if (i < index)
     {
       result[i] = arr[i];
+      result.size ++;
     }
   }
 }
-size ++;
 }
 
 public String remove(int index)
@@ -179,6 +181,7 @@ public String remove(int index)
   {
     word = arr[index];
     String[] resultant = new String[arr.length - 1];
+    resultant.size = 0;
     for (int i = 0; i < arr.length - 1; i++)
     {
       if (i == index)
@@ -187,11 +190,13 @@ public String remove(int index)
       }
       if (i > index)
       {
-        resultant[i] = arr[i - 1];
+        resultant[i - 1] = arr[i];
+        resultant.size ++;
       }
       if (i < index)
       {
         resultant[i] = arr[i];
+        resultant.size ++;
       }
     }
     this.arr = resultant;
@@ -206,6 +211,7 @@ public boolean remove(String word)
   }
   int plob = indexOf(word);
   remove(plob);
+  size -= 1;
   return true;
 }
 }

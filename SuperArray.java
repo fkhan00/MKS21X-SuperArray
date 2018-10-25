@@ -7,7 +7,7 @@ public SuperArray()
   arr = new String[10];
   size = 0;
 }
-public SuperArray(String[] newAr, int newSize)
+public SuperArray(String[] newAr)
 {
 int counter = 0;
 for (int i = 0; i < newAr.length; i++)
@@ -141,14 +141,17 @@ public int lastIndexOf(String target)
 
 public void add(int index, String word)
 {
-  resize();
-  if (index < arr.length || index > 0)
+  if (index == arr.length)
+  {
+    resize();
+  }
+  if (index > arr.length || index < 0)
   {
     System.out.println("Out of Bounds error");
   }
   else
   {
-  String[] result = new String[arr.length];
+  String[] result = new String[arr.length + 1];
   arr[index] = word;
   for (int i = 0; i < arr.length; i++)
   {
@@ -162,6 +165,7 @@ public void add(int index, String word)
     }
   }
 }
+size ++;
 }
 
 public String remove(int index)

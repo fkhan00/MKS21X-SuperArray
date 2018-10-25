@@ -52,6 +52,11 @@ public static void main(String[] args)
   System.out.println("Should return UNITED STATES SMASH OF");
   testCase.add(2, "SMASH");
   System.out.println(testCase);
+  testCase.add(2, "OF");
+  testCase.remove(4);
+  System.out.println("Should return:");
+  System.out.println(testCase);
+
 
 
 

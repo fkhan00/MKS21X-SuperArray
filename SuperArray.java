@@ -24,7 +24,10 @@ for (int i = 0; i < newAr.length; i++)
 arr [i] = newAr[i];
 }
 }
-
+public SuperArray(int startingCapacity)
+{
+  size = startingCapacity;
+}
 public void clear()
 {
 for(int i = 0; i < arr.length; i ++)
@@ -79,19 +82,18 @@ public String toStringDebug()
 
 public String get(int index)
 {
+
 if (index >= arr.length || index < 0)
 {
-return null;
+  throw new IndexOutOfBoundsException();
 }
 return arr[index];
 }
-
 public String set(int index, String word)
 {
 if (index > arr.length || index < 0 || arr[index] == word)
 {
-System.out.println("error");
-return null;
+throw new IndexOutOfBoundsException();
 }
 String power = arr[index];
 arr[index] = word;
@@ -100,7 +102,7 @@ return power;
 
 private void resize()
 {
-  String[] output = new String[arr.length * 2];
+  String[] output = new String[arr.length * 2 + 1];
   for (int i = 0; i < arr.length; i ++)
   {
     output[i] = arr[i];
@@ -160,7 +162,7 @@ public void add(int index, String word)
   }
   if (index >= arr.length || index < 0)
   {
-    System.out.println("Out of Bounds error");
+    throw new IndexOutOfBoundsException();
   }
   else
   {

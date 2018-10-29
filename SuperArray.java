@@ -26,7 +26,13 @@ arr [i] = newAr[i];
 }
 public SuperArray(int startingCapacity)
 {
+if(startingCapacity < 0)
+{
+  throw new IllegalArgumentException("Can't have negative starting capacity");
+}
+{
   size = startingCapacity;
+}
 }
 public void clear()
 {
@@ -189,7 +195,7 @@ public String remove(int index)
   String word = "";
   if(index < 0 || index >= arr.length)
   {
-    System.out.println("Out of Bounds error");
+    throw new IndexOutOfBoundsException();
   }
   else
   {

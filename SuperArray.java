@@ -30,13 +30,12 @@ if(startingCapacity < 0)
 {
   throw new IllegalArgumentException("Can't have negative starting capacity");
 }
-{
-  size = startingCapacity;
-}
+size = startingCapacity;
+arr = new String[startingCapacity];
 }
 public void clear()
 {
-for(int i = 0; i < arr.length; i ++)
+for(int i = 0; i < size; i ++)
 {
 arr[i] = "";
 size = 0;
@@ -45,7 +44,7 @@ size = 0;
 
 public boolean isEmpty()
 {
-return size() != arr.length;
+return size == 0;
 }
 
 public int size()
@@ -54,32 +53,32 @@ return size;
 }
 public boolean add(String word)
 {
-if (size == arr.length)
-{
-  return false;
-}
-arr[size()] = word;
+  if(size == arr.length)
+  {
+    resize();
+  }
+arr[size] = word;
 size ++;
 return true;
 }
-
-public String toString()
+public String toStringDebug()
 {
   String arrayString = "[";
-  for(int i=0; i<arr.length; i++){
-    arrayString += arr[i] + ",";
+  for(int i = 0; i < size; i++)
+  {
+    arrayString += (arr[i] + ", ");
   }
   arrayString += "]";
   return arrayString;
 }
-
-public String toStringDebug()
+public String toString()
 {
   String arrayString = "[";
-  for(int i=0; i<arr.length; i++){
-    if (arr[i] != null)
+  for(int i=0; i < size; i++)
+  {
+    if(arr[i] != null)
     {
-    arrayString += arr[i] + ",";
+    arrayString += (arr[i] + ", ");
   }
   }
   arrayString += "]";
@@ -97,7 +96,7 @@ return arr[index];
 }
 public String set(int index, String word)
 {
-if (index > arr.length || index < 0 || arr[index] == word)
+if (index > size|| index < 0 || arr[index] == word)
 {
 throw new IndexOutOfBoundsException();
 }
@@ -108,7 +107,7 @@ return power;
 
 private void resize()
 {
-  String[] output = new String[arr.length * 2 + 1];
+  String[] output = new String[size * 2 + 1];
   for (int i = 0; i < arr.length; i ++)
   {
     output[i] = arr[i];
@@ -203,21 +202,17 @@ public String remove(int index)
     String[] resultant = new String[arr.length - 1];
     for (int i = 0; i < arr.length - 1; i++)
     {
-      if (i == index)
-      {
-        i ++;
-      }
       if (i > index)
       {
         resultant[i - 1] = arr[i];
       }
-      if (i < index)
+      else if (i < index)
       {
         resultant[i] = arr[i];
       }
     }
     this.arr = resultant;
-    size ++;
+    size -=1;
   }
   return word;
 }
@@ -229,7 +224,6 @@ public boolean remove(String word)
   }
   int plob = indexOf(word);
   remove(plob);
-  size -= 1;
   return true;
 }
 }
